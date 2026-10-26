@@ -30,9 +30,28 @@ export default function App() {
     catch (error) { console.error('Kunne ikke gemme bøger:', error); }
   }, [books]);
 
+  //function addBook({ title, author }) {
+  //  const id = crypto.randomUUID();
+  //  setBooks(previous => [...previous, { id, title: title.trim(), author: author.trim(), isRead: false }]);
+  //  return id;
+  // }
   function addBook({ title, author }) {
-    const id = crypto.randomUUID();
-    setBooks(previous => [...previous, { id, title: title.trim(), author: author.trim(), isRead: false }]);
+    const numbers = books
+      .map(book => Number(book.id.replace(/^b/, "")))
+      .filter(Number.isInteger);
+  
+    const nextId = Math.max(0, ...numbers) + 1;
+    const id = `b${nextId}`;
+  
+    const newBook = {
+      id,
+      title,
+      author,
+      isRead: false
+    };
+  
+    setBooks(previous => [...previous, newBook]);
+  
     return id;
   }
   function updateBook(id, { title, author }) {
