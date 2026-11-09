@@ -30,11 +30,6 @@ export default function App() {
     catch (error) { console.error('Kunne ikke gemme bøger:', error); }
   }, [books]);
 
-  //function addBook({ title, author }) {
-  //  const id = crypto.randomUUID();
-  //  setBooks(previous => [...previous, { id, title: title.trim(), author: author.trim(), isRead: false }]);
-  //  return id;
-  // }
   function addBook({ title, author }) {
     const numbers = books
       .map(book => Number(book.id.replace(/^b/, "")))
